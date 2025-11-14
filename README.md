@@ -13,6 +13,8 @@ A Neovim plugin that tracks your open buffers and current file in tmux environme
 - **Zero configuration** - Works out of the box
 - **Neovim 0.10+** - Uses async APIs when available
 
+https://github.com/user-attachments/assets/59bdc88d-73aa-422e-9224-53596639add9
+
 ## Requirements
 
 - [fuzzmux.tmux](https://github.com/pteroctopus/fuzzmux.tmux) for the fuzzy finder interface
