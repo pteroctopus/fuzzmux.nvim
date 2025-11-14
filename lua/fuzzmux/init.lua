@@ -1,0 +1,49 @@
+local tmux = require("fuzzmux.tmux")
+
+-- Check if Neovim is running inside tmux. If not don't set up autocommands.
+if not tmux.is_tmux() then
+  return
+end
+
+-- Configuration for fuzzmux.nvim
+-- Currently no configuration is needed, but this is a placeholder for future options.
+local M = {}
+
+local defaults = {
+}
+
+M.opts = defaults
+
+function M.setup(user_opts)
+  M.opts = vim.tbl_extend("force", defaults, user_opts or {})
+end
+
+
+-- Create an augroup for fuzzmux autocommands
+local augroup_id = vim.api.nvim_create_augroup("FuzzmuxNvimFiles", { clear = true })
+
+-- Create autocommands to update tmux environment variables on relevant events
+vim.api.nvim_create_autocmd({"BufEnter"}, {
+  callback = function()
+    tmux.set_current_file()
+  end,
+  desc = "[fuzzmux.nvim] Set FUZZMUX_CURRENT_FILE when switching buffers",
+  group = augroup_id,
+})
+
+vim.api.nvim_create_autocmd({"VimEnter", "BufAdd", "BufDelete"}, {
+  callback = tmux.set_open_files,
+  desc = "[fuzzmux.nvim] Update FUZZMUX_OPEN_FILES when buffers change",
+  group = augroup_id,
+})
+
+vim.api.nvim_create_autocmd({"VimLeavePre"},{
+  callback = function()
+    tmux.unset_current_file()
+    tmux.unset_open_files()
+  end,
+  desc = "[fuzzmux.nvim] Unset global pane-specific FUZZMUX_CURRENT_FILE and FUZZMUX_OPEN_FILES in tmux",
+  group = augroup_id,
+})
+
+return M
