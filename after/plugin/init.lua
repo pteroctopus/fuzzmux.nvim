@@ -3,4 +3,4 @@ if vim.g.loaded_fuzzmux_nvim == 1 then
 end
 vim.g.loaded_fuzzmux_nvim = 1
 
-require('fuzzmux').setup()
+require("fuzzmux").setup()
