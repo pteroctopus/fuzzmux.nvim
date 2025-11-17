@@ -88,10 +88,13 @@ fuzzmux.nvim sets tmux global environment variables that contain information abo
 
 ```bash
 # List of all open buffers in a specific pane (colon-separated)
-FUZZMUX_OPEN_FILES_<session>_<window>_<pane>="/path/to/file1.txt:/path/to/file2.lua:/path/to/file3.md"
+FUZZMUX_OPEN_FILES_<pane_id>="/path/to/file1.txt:/path/to/file2.lua:/path/to/file3.md"
 
 # Currently active buffer in a specific pane
-FUZZMUX_CURRENT_FILE_<session>_<window>_<pane>="/path/to/current/file.lua"
+FUZZMUX_CURRENT_FILE_<pane_id>="/path/to/current/file.lua"
+
+# Neovim socket path for a specific pane
+FUZZMUX_NVIM_SOCKET_<pane_id>="/path/to/nvim/socket"
 ```
 
 These variables are automatically updated when you:
@@ -107,13 +110,13 @@ The [fuzzmux.tmux](https://github.com/pteroctopus/fuzzmux.tmux) plugin reads the
 
 fuzzmux.nvim creates autocommands for the following events:
 
-| Event | Action | Description |
-|-------|--------|-------------|
-| `BufEnter` | Updates current file | Tracks which buffer is active |
-| `VimEnter` | Updates open files | Initial buffer list on startup |
-| `BufAdd` | Updates open files | Tracks when buffers are opened |
-| `BufDelete` | Updates open files | Updates list when buffers close |
-| `VimLeavePre` | Cleanup | Removes all environment variables |
+| Event         |
+|---------------|
+| `BufEnter`    |
+| `VimEnter`    |
+| `BufAdd`      |
+| `BufDelete`   |
+| `VimLeavePre` |
 
 ### Performance Optimizations
 
@@ -141,8 +144,8 @@ This excludes:
 The plugin uses a consistent naming convention with fuzzmux.tmux:
 
 ```bash
-FUZZMUX_OPEN_FILES_<session>_<window>_<pane>
-FUZZMUX_CURRENT_FILE_<session>_<window>_<pane>
+FUZZMUX_OPEN_FILES_<pane_id>
+FUZZMUX_CURRENT_FILE_<pane_id>
 ```
 
 ## Troubleshooting
