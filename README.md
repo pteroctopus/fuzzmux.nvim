@@ -13,7 +13,7 @@ A Neovim plugin that tracks your open buffers and current file in tmux environme
 - **Zero configuration** - Works out of the box
 - **Neovim 0.10+** - Uses async APIs when available
 
-https://github.com/user-attachments/assets/59bdc88d-73aa-422e-9224-53596639add9
+https://github.com/user-attachments/assets/4aea9c2f-5e3a-4e61-850a-e3ad7f1937b4
 
 ## Requirements
 
