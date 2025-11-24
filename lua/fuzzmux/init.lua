@@ -1,10 +1,5 @@
 local tmux = require("fuzzmux.tmux")
 
--- Check if Neovim is running inside tmux. If not don't set up autocommands.
-if not tmux.is_tmux() then
-  return
-end
-
 -- Configuration for fuzzmux.nvim
 -- Currently no configuration is needed, but this is a placeholder for future options.
 local M = {}
@@ -15,6 +10,11 @@ M.opts = defaults
 
 function M.setup(user_opts)
   M.opts = vim.tbl_extend("force", defaults, user_opts or {})
+end
+
+-- Check if Neovim is running inside tmux. If not don't set up autocommands.
+if not tmux.is_tmux() then
+  return M
 end
 
 -- Create an augroup for fuzzmux autocommands
